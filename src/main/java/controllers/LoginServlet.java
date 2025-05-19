@@ -6,6 +6,9 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import services.LoginService;
+import services.LoginServiceImplement;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -22,7 +25,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
+/*
         // Obtener todas las cookies del request, si no hay crear arreglo vacío
         Cookie[] cookies = req.getCookies() != null ? req.getCookies() : new Cookie[0];
 
@@ -31,7 +34,10 @@ public class LoginServlet extends HttpServlet {
                 .filter(c -> "username".equals(c.getName()))  // Filtrar por nombre de cookie
                 .map(Cookie::getValue)  // Obtener solo el valor de la cookie
                 .findAny();  // Tomar la primera coincidencia
-
+*/
+        //creamos el nuevo objeto de la cookie
+        LoginService auth = new LoginServiceImplement();
+        Optional<String> cookieOptional = auth.getUserName(req);
         // Si existe la cookie (usuario ya autenticado)
         if (cookieOptional.isPresent()) {
             // Configurar tipo de contenido de la respuesta
